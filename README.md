@@ -16,4 +16,9 @@
   * `pr 규칙` 
     * 프로그래머스 : [Programmers] yy-mm-dd
   * `업로드 위치`
-    * 프로그래머스 : Programmers/이름/레벨/파일명 (ex. `Programmers/haerin/LV1/약수의합.java`)    
+    * 프로그래머스 : Programmers/이름/레벨/파일명 (ex. `Programmers/haerin/LV1/약수의합.java`)
+<br></br>
+### 👥 Member
+|<a href="https://github.com/nhee0410"><img src="https://avatars.githubusercontent.com/u/43716537?v=4?s=100" width="50px;" alt="">|<a href="https://github.com/nhee0410"><img src="https://avatars.githubusercontent.com/u/59634496?v=4?s=100" width="50px;" alt="">|
+|-----|-----|
+|김해린|김빛나리|
