@@ -1,7 +1,8 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/12903
 // title : 가운데글자가져오기
 // time : 4m
-// 유형 : 문자열 처리
+// 유형 : 문자열
+// Created by haerin on 2023/01/10
 public class 가운데글자가져오기 {
     // 속도는 비슷
     class Solution {
