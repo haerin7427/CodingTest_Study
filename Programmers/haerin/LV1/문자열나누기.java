@@ -1,7 +1,7 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/140108
 // title : 문자열 나누기
 // time : 20m
-// type : 
+// type : 문자열
 // Created by haerin on 2023-01-30
 public class 문자열나누기 {
     class Solution {
