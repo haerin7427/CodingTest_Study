@@ -1,6 +1,6 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/133502
 // title : 햄버거 만들기
-// type : 
+// type : ...
 // time : help
 // Created by haerin on 2023-01-31
 import java.util.*;
