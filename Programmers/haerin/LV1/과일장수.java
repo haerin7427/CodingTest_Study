@@ -10,9 +10,8 @@ public class 과일장수 {
             Arrays.sort(score);
             int answer = 0;
             for(int i = score.length - m; i>=0; i-=m) {
-                answer += score[i];
+                answer += score[i]*m;
             }
-            answer *= m;
             return answer;
         }
     }
