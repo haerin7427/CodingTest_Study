@@ -1,6 +1,6 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/77484
 // title : 로또의 최고 순위와 최저 순위
-// type : 
+// type : ...
 // time : 10m
 // Created by haerin on 23-02-01
 public class 로또의최고순위와최저순위 {
