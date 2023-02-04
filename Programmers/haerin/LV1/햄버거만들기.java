@@ -2,7 +2,7 @@
 // title : 햄버거 만들기
 // type : ...
 // time : help
-// Created by haerin on 2023-01-31
+// Created by haerin on 2023-01-31, 2023-02-04(2)
 import java.util.*;
 public class 햄버거만들기 {
     class Solution {
@@ -22,19 +22,18 @@ public class 햄버거만들기 {
             return answer;
         }
     }
+    // 속도 훨씬 빠름
     class Solution2 {
         public int solution(int[] ingredient) {
-            int[] stack = new int[ingredient.length];
-            int sp = 0;
+            int[] s = new int[ingredient.length];
             int answer = 0;
-            for (int i : ingredient) {
-                stack[sp++] = i;
-                if (sp >= 4 && stack[sp - 1] == 1
-                    && stack[sp - 2] == 3
-                    && stack[sp - 3] == 2
-                    && stack[sp - 4] == 1) {
-                    sp -= 4;
-                    answer++;
+            int idx = 0;
+            for(int i=0; i<ingredient.length; i++){
+                if(ingredient[i] == 1 && idx > 2 && s[idx-3] == 1 && s[idx-2] == 2 && s[idx-1] == 3) {
+                    answer += 1;
+                    idx -= 3;
+                }else{
+                    s[idx++] = ingredient[i];
                 }
             }
             return answer;
