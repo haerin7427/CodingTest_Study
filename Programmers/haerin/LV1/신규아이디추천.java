@@ -2,7 +2,7 @@
 // title : 신규 아이디 추천
 // type : 문자열
 // time : 28m
-// Created by haerin on 23-02-01
+// Created by haerin on 23-02-01, 23-02-05
 public class 신규아이디추천 {
     class Solution {
         public String solution(String new_id) {
@@ -47,6 +47,32 @@ public class 신규아이디추천 {
                 answer = answer.substring(0, 15).replaceAll("[.]$","");
             }
             return answer;
+        }
+    }
+
+    class Solution3 {
+        public String solution(String new_id) {
+            String s = new_id.toLowerCase().replaceAll("[^a-z0-9-_.]","").replaceAll("[.]{2,}",".");
+            if(s.length() > 0 && s.charAt(0)=='.'){
+                s = s.substring(1);
+            }
+            if(s.length() > 0 && s.charAt(s.length()-1)=='.'){
+                s = s.substring(0, s.length()-1);
+            }
+            if(s.equals("")) {
+                s = "aaa";
+            }
+            if(s.length() > 15) {
+                if(s.charAt(14) == '.'){
+                    s = s.substring(0, 14);
+                }else {
+                    s = s.substring(0, 15);
+                }
+            }
+            while(s.length() < 3) {
+                s += s.charAt(s.length()-1);
+            }
+            return s;
         }
     }
 }
