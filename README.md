@@ -1,11 +1,11 @@
 # CodingTest_Study   
 ### 💡 문제 출제
 * 매주 `금요일 자정`까지 위키에 다음주에 풀 문제 선택
-* 일주일 분량 `프로그래머스 LV1 15문제` 정한 후, [`wiki`](https://github.com/haerin7427/CodingTest_Study/wiki)에 추가 (하루에 3문제)
+* 일주일 분량 `프로그래머스 LV1~3 20문제` 정한 후, [`wiki`](https://github.com/haerin7427/CodingTest_Study/wiki)에 추가 (하루에 4문제)
 <br></br>
 ### 💡 스터디 방식
 * 평일 오전 10시에 구글밋으로 스터디
-* 스터디 전까지 정해진 3문제 풀기
+* 스터디 전까지 정해진 문제 풀기
 * 문제 풀이 설명
 <br></br>
 ### 💡 문제 업로드
