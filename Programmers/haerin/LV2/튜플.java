@@ -2,8 +2,8 @@ package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/64065
 // title : 튜플
 // type : ...
-// time : 23m
-// Created by haerin on 2023-02-10
+// time : 23m, 16m
+// Created by haerin on 2023-02-10, 2023-02-12
 import java.util.*;
 public class 튜플 {
     class Solution {
@@ -36,14 +36,17 @@ public class 튜플 {
     }
     class Solution2 {
         public int[] solution(String s) {
+            String[] str = s.replaceAll("[}{]", " ").trim().split(" , ");
+            Arrays.sort(str, (o1, o2)->{return o1.length() - o2.length();});
+            
             Set<String> set = new HashSet<>();
-            String[] arr = s.replaceAll("[{]", " ").replaceAll("[}]", " ").trim().split(" , ");
-            Arrays.sort(arr, (a, b)->{return a.length() - b.length();});
-            int[] answer = new int[arr.length];
+            int[] answer = new int[str.length];
             int idx = 0;
-            for(String s1 : arr) {
-                for(String s2 : s1.split(",")) {
-                    if(set.add(s2)) answer[idx++] = Integer.parseInt(s2);
+            for(String tuple : str) {
+                for(String num : tuple.split(",")){
+                    if(set.add(num)){
+                        answer[idx++] = Integer.parseInt(num);
+                    }
                 }
             }
             return answer;
