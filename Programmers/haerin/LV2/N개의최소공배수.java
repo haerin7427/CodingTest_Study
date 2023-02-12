@@ -2,8 +2,8 @@ package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/12953
 // title : N개의 최소공배수
 // type : 정수
-// time : 9m
-// Created by haerin on 2023-02-08
+// time : 9m, 15m
+// Created by haerin on 2023-02-08, 2023-02-12
 public class N개의최소공배수 {
     class Solution {
         public int solution(int[] arr) {
@@ -30,6 +30,29 @@ public class N개의최소공배수 {
                 num += 1;
             }
             return answer;
+        }
+    }
+    // 유클리드 호제법 알고리즘 사용
+    class Solution2 {
+        public int solution(int[] arr) {
+            int answer = arr[0];
+            for(int i=1; i<arr.length; i++) {
+                int gcd = getGdc(answer, arr[i]);
+                answer = answer * arr[i] / gcd;
+            }
+            return answer;
+        }
+        
+        public int getGdc(int a, int b) {
+            int devidend = Math.max(a,b);
+            int devisor = Math.min(a,b);
+            
+            while(devidend % devisor != 0) {
+                int r = devidend % devisor;
+                devidend = devisor;
+                devisor = r;
+            }
+            return devisor;
         }
     }
 }
