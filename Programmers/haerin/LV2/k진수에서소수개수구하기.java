@@ -1,12 +1,13 @@
 package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/92335
 // title : k진수에서 소수 개수 구하기
-// type : 
+// type : 완전탐색
 // time : 18m
 // Created by haerin on 2023-02-17
 public class k진수에서소수개수구하기 {
     class Solution {
         public int solution(int n, int k) {
+            // String[] str = Integer.toString(n, k).split("0");
             String[] str = Integer.toString(n, k).replaceAll("0"," ").split(" ");
             
             int answer = 0;
