@@ -2,8 +2,8 @@ package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/12953
 // title : N개의 최소공배수
 // type : 정수
-// time : 9m, 15m
-// Created by haerin on 2023-02-08, 2023-02-12
+// time : 9m, 15m, 9m
+// Created by haerin on 2023-02-08, 2023-02-12, 2023-02-18
 public class N개의최소공배수 {
     class Solution {
         public int solution(int[] arr) {
@@ -53,6 +53,26 @@ public class N개의최소공배수 {
                 devisor = r;
             }
             return devisor;
+        }
+    }
+    class Solution3 {
+        public int solution(int[] arr) {
+            int answer = arr[0];
+            for(int i=1; i<arr.length; i++){
+                answer = answer * arr[i] / get(answer, arr[i]);
+            }
+            return answer;
+        }
+        private int get(int num1, int num2){
+            int a = Math.max(num1, num2);
+            int b = Math.min(num1, num2);
+            
+            while(a % b != 0){
+                int r = a % b;
+                a = b;
+                b = r;
+            }
+            return b;
         }
     }
 }
