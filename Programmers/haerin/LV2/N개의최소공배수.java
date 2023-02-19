@@ -3,7 +3,7 @@ package Programmers.haerin.LV2;
 // title : N개의 최소공배수
 // type : 정수
 // time : 9m, 15m, 9m
-// Created by haerin on 2023-02-08, 2023-02-12, 2023-02-18
+// Created by haerin on 2023-02-08, 2023-02-12, 2023-02-19
 public class N개의최소공배수 {
     class Solution {
         public int solution(int[] arr) {
