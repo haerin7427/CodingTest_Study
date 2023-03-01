@@ -1,7 +1,7 @@
 package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/148653
 // title : 마법의 엘리베이터
-// type : 구현
+// type : 수
 // time : 57m
 // Created by haerin on 2023-02-28
 public class 마법의엘리베이터 {
@@ -32,7 +32,6 @@ public class 마법의엘리베이터 {
     class Solution2 {
         public int solution(int storey) {
             int answer = 0;
-            char[] arr = Integer.toString(storey).toCharArray();
             
             while(storey > 0){
                 int r = storey % 10;
