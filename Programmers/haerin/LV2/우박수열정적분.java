@@ -1,6 +1,7 @@
 package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/134239
 // title : 우박수열 정적분
+// type : 누적합
 // time : 50m
 // Created by haerin on 2023-03-05
 import java.util.*;
