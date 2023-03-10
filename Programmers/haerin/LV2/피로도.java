@@ -2,8 +2,8 @@ package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/87946
 // title : 피로도
 // type : dfs
-// time : 20m
-// Created by haerin on 2023-02-22
+// time : 20m, 26m
+// Created by haerin on 2023-02-22, 2023-03-10
 import java.util.*;
 public class 피로도 {
     // 오답
@@ -53,6 +53,64 @@ public class 피로도 {
                 }
             }
             list.add(count);
+        }
+    }
+    // 2023-03-10 작성
+    class Solution3 {
+        public int solution(int k, int[][] dungeons) {
+            boolean[] isVisited = new boolean[dungeons.length];
+            
+            int answer = 0;
+            for(int i=0; i<dungeons.length; i++){
+                answer = Math.max(answer, dfs(dungeons, isVisited, k, i, 0));
+            }
+            return answer;
+        }
+        
+        private int dfs(int[][] dungeons, boolean[] isVisited, int k, int idx, int cnt){
+            if(dungeons[idx][0] > k){
+                return cnt;
+            }
+            
+            k -= dungeons[idx][1];
+            isVisited[idx] = true;
+            cnt+=1;
+            
+            if(cnt == dungeons.length){
+                return dungeons.length;
+            }
+            
+            int ans = 0;
+            for(int i=0; i<dungeons.length; i++){
+                if(!isVisited[i]){
+                    ans = Math.max(ans, dfs(dungeons, isVisited, k, i, cnt));
+                }
+            }
+            isVisited[idx] = false;
+            return ans;
+        }
+    }
+    // 2023-03-10 더 간결한 코드 발견
+    class Solution4 {
+        public boolean check[];
+        public  int ans = 0;
+    
+        public int solution(int k, int[][] dungeons) {
+            check = new boolean[dungeons.length];
+    
+            dfs(k, dungeons, 0);
+    
+            return ans;
+        }
+        public void dfs(int tired, int[][] dungeons, int cnt){
+            for(int i=0; i<dungeons.length; i++){
+                if(!check[i] && dungeons[i][0]<=tired){
+                    check[i] = true;
+                    dfs(tired-dungeons[i][1], dungeons, cnt+1);
+                    check[i] = false;
+                }
+            }
+            ans = Math.max(ans, cnt);
         }
     }
 }
