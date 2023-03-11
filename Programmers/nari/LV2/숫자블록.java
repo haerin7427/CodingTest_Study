@@ -2,7 +2,6 @@
 // title : 숫자 블록
 
 public class 숫자블록 {
-    // 13번 테스트 + 효윤성 테스트 전부 실패 -> 왜인지 이해가 안됨
     class Solution {
         public int[] solution(long begin, long end) {
             int b = (int)begin, e = (int)end;
@@ -26,7 +25,7 @@ public class 숫자블록 {
                         
                         // 블럭은 10000000(천만)까지기 때문에
                         if(value <= 10000000) break;
-                        else value = 1;
+                        else value = j;
                     }
                 }
 
