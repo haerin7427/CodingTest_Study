@@ -2,49 +2,54 @@ package Programmers.haerin.LV2;
 // https://school.programmers.co.kr/learn/courses/30/lessons/68936
 // title : 쿼드압축 후 개수 세기
 // type : 백트랙킹
-// time : ...
-// Created by haerin on 2023-02-22
+// time : 17m
+// Created by haerin on 2023-03-10
 public class 쿼드압축후개수세기 {
-    int zero = 0;
-    int one = 0;
-    
-    public int[] solution(int[][] arr) {
-        int[] answer = new int[2];
-        
-        backTrack(arr, 0, arr.length-1, 0, arr[0].length-1);
-        answer[0] = zero;
-        answer[1] = one;
-
-        return answer;
-    }
-    
-    public void backTrack(int[][] arr, int startX, int endX, int startY, int endY){
-        int zeroOrOne = arr[startX][startY];
-        boolean allCheck = true;
-        
-        loop:
-        for(int i = startX; i < endX+1; i++){
-            for(int j = startY; j < endY+1; j++){
-                if(arr[i][j] != zeroOrOne){
-                    allCheck = false;
-                    break loop;
+    class Solution {
+        public int[] solution(int[][] arr) {
+            compress(arr, arr.length, 0, 0);
+            int[] answer = new int[2];
+            for(int y=0; y<arr.length; y++){
+                for(int x=0; x<arr[0].length; x++){
+                    if(arr[y][x] == 0){
+                        answer[0] += 1;
+                    }else if(arr[y][x] == 1){
+                        answer[1] += 1;
+                    }
                 }
             }
+            return answer;
         }
         
-        if(allCheck){
-            if(zeroOrOne == 0){
-                zero++;
-            }else{
-                one++;
+        public void compress(int[][] arr, int len, int y, int x){
+            
+            if(len == 1 || isPossible(arr, len, y, x)){
+                return;
             }
-            return;
+            
+            compress(arr, len/2, y, x);
+            compress(arr, len/2, y, x+len/2);
+            compress(arr, len/2, y+len/2, x);
+            compress(arr, len/2, y+len/2, x+len/2);
         }
         
-        backTrack(arr, startX, (startX+endX)/2, startY, (startY+endY)/2);
-        backTrack(arr, startX, (startX+endX)/2, (startY+endY)/2+1, endY);
-        backTrack(arr, (startX+endX)/2+1, endX, startY, (startY+endY)/2);
-        backTrack(arr, (startX+endX)/2+1, endX, (startY+endY)/2+1, endY);
-        
+        public boolean isPossible(int[][] arr, int len, int y, int x){
+            int pattern = arr[y][x];
+            for(int row=y; row<y+len; row++){
+                for(int col=x; col<x+len; col++){
+                    if(arr[row][col] != pattern){
+                        return false;
+                    }
+                }
+            }
+            
+            for(int row=y; row<y+len; row++){
+                for(int col=x; col<x+len; col++){
+                    arr[row][col] = -1;
+                }
+            }
+            arr[y][x] = pattern;
+            return true;
+        }
     }
 }
