@@ -2,7 +2,7 @@ package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/42861
 // title : 섬 연결하기
 // type : 최소 신장 트리 -> 크루스칼 알고리즘
-// time : 12:18
+// time : 30m
 // Created by haerin on 2023-03-16
 import java.util.*;
 public class 섬연결하기 {
