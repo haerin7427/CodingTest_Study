@@ -1,0 +1,56 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/49189
+// title : 가장 먼 노드
+
+import java.util.*;
+
+public class 가장먼노드 {
+    class Solution {
+        int[] depths;
+        int maxDepth = 0;
+        
+        public int solution(int n, int[][] edge) {
+            int answer = 0;
+            depths = new int[n+1];
+            
+            bfs(1, 1, edge);
+            
+            // maxDepth와 동일한 depth일 경우, 가장 먼 노드라고 판단
+            for(int i=1;i<=n;i++) {
+                if(maxDepth == depths[i]) answer++;
+            }
+            
+            return answer;
+        }
+        
+        void bfs(int start, int count, int[][] edge){
+            Queue<Integer> queue = new LinkedList();
+            queue.add(start);
+            queue.add(count);
+            
+            // 현재 노드 번호에 갯수 저장
+            depths[start] = count;
+            
+            while(!queue.isEmpty()) {
+                int node = queue.poll();
+                int n = queue.poll();
+                
+                if(maxDepth < n) maxDepth = n;
+                
+                for(int i=0;i<edge.length;i++) {
+                    // edge[i]에 해당 노드가 없는 경우
+                    if(edge[i][0] != node && edge[i][1] != node) continue;
+                    
+                    // 해당 노드와 연결된 다음 노드
+                    int next = edge[i][0] == node ? edge[i][1] : edge[i][0];
+                    
+                    // 다음 노드에 이미 값이 저장되어 있는 경우 
+                    if(depths[next] != 0) continue;
+                    
+                    depths[next] = n+1;
+                    queue.add(next);
+                    queue.add(n+1);
+                }
+            }
+        }
+    }
+}
