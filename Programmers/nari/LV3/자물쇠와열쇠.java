@@ -1,4 +1,4 @@
-// https://school.programmers.co.kr/learn/courses/30/lessons/12938
+// https://school.programmers.co.kr/learn/courses/30/lessons/60059
 // title : 자물쇠와 열쇠
 
 public class 자물쇠와열쇠 {
