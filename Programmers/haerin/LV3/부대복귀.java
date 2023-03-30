@@ -2,8 +2,8 @@ package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/132266
 // title : 부대복귀
 // type : 다익스트라
-// time : 24m
-// Created by haerin on 2023-03-27
+// time : 24m, 30m
+// Created by haerin on 2023-03-27, 2023-03-29
 import java.util.*;
 public class 부대복귀 {
     // 플로이드-워셜 알고리즘
@@ -88,6 +88,47 @@ public class 부대복귀 {
                     if(dis[nn] > dis[cn]+1){
                         dis[nn] = dis[cn]+1;
                         qu.add(nn);
+                    }
+                }
+            }
+        }
+    }
+    class Solution3 {
+        public int[] solution(int n, int[][] roads, int[] sources, int destination) {
+            List<List<Integer>> graph = new ArrayList<>();
+            for(int i=0; i<n+1; i++){
+                graph.add(new ArrayList<>());
+            }
+            for(int[] road : roads){
+                graph.get(road[0]).add(road[1]);
+                graph.get(road[1]).add(road[0]);
+            }
+            
+            int[] node = new int[n+1];
+            Arrays.fill(node, Integer.MAX_VALUE);
+            
+            dijkstra(destination, node, graph);
+            
+            int[] answer = new int[sources.length];
+            int idx = 0;
+            for(int source : sources){
+                answer[idx++] = node[source] < Integer.MAX_VALUE ? node[source] : -1;
+            }
+            return answer;
+        }
+        
+        public void dijkstra(int destination, int[] node, List<List<Integer>> graph){
+            Queue<Integer> q = new LinkedList<>();
+            q.add(destination);
+            node[destination] = 0;
+            
+            while(!q.isEmpty()){
+                int cur = q.poll();
+                for(int i=0; i<graph.get(cur).size(); i++){
+                    int nextNode = graph.get(cur).get(i);
+                    if(node[nextNode] > node[cur] + 1){
+                        node[nextNode] = node[cur] + 1;
+                        q.add(nextNode);
                     }
                 }
             }
