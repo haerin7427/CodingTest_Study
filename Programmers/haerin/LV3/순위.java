@@ -1,10 +1,10 @@
 package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/49191
-// title : 순위검색
+// title : 순위
 // type : 플로이드 와샬
 // time : 18m
 // Created by haerin on 2023-03-31
-public class 순위검색 {
+public class 순위 {
     class Solution {
         public int solution(int n, int[][] results) {
             int[][] board = new int[n+1][n+1];
