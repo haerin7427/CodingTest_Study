@@ -6,7 +6,8 @@ package Programmers.haerin.LV3;
 // Created by haerin on 2023-04-21
 import java.util.*;
 public class 캠핑 {
-    // 시간 초과
+    // 테스트 케이스 통과!
+    // 최적화 조건 참고 : https://jaejin0me.github.io/post/algo47/
     class Solution {
         public int solution(int n, int[][] data) {
             Arrays.sort(data, (o1, o2) -> (o1[0] - o2[0]));
@@ -14,22 +15,20 @@ public class 캠핑 {
             for(int i=0; i<data.length-1; i++){
                 for(int j=i+1; j<data.length; j++){
                     if(data[i][0] == data[j][0] || data[i][1] == data[j][1]) continue;
-                    
+    
                     int minY = Math.min(data[i][1], data[j][1]);
                     int maxY = Math.max(data[i][1], data[j][1]);
                     int minX = data[i][0];
                     int maxX = data[j][0];
-                    
-                    boolean flag = true;
-                    for(int f=0; f<data.length; f++){
-                        if(f == i || f == j) continue;
+    
+                    // x기준으로 정렬했으니, j보다 작은 인덱스 점들만 검사
+                    for(int f=j; f>=0; f--){
                         if(minX < data[f][0] && data[f][0] < maxX && minY < data[f][1] && data[f][1] < maxY){
-                            flag = false;
-                            break;
+                            answer -= 1; // 쐐기가 존재하면 마이너스
+                            break; // 하나라도 존재하면 직사각형 못만드니까 검사 중단
                         }
                     }
-                    if(flag)
-                        answer += 1;
+                    answer += 1; // 쐐기의 존재 여부 확인없이 플러스
                 }
             }
             return answer;
