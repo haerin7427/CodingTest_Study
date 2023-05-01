@@ -4,7 +4,7 @@
 import java.util.*;
 
 public class N으로표현 {
-    class Solution {
+    class Solution1 {
         public int solution(int N, int number) {
             ArrayList<Set<Integer>> list = new ArrayList<>();
             
@@ -41,6 +41,48 @@ public class N으로표현 {
                 if(set.contains(number)) return i+1;
             }
             
+            return -1;
+        }
+    }
+
+    class Solution2 {
+        public int solution(int N, int number) {
+            if(N == number) return 1;
+                
+            ArrayList<HashSet<Integer>> list = new ArrayList<>();
+            
+            list.add(new HashSet<>());
+            list.get(0).add(N);
+            
+            for(int i=1;i<8;i++) {
+                list.add(new HashSet<>());
+                HashSet<Integer> set = list.get(i);
+                
+                set.add(Integer.parseInt(Integer.toString(N).repeat(i+1)));
+                
+                // 2 = 1 + 1
+                // 3 = 1 + 2, 2 + 1
+                // 4 = 1 + 3, 2 + 2, 3 + 1
+                
+                // i=6인 경우
+                // (0번 - 5번, 1번 - 4번, 2번 - 3번, 3번 - 2번, 4번 - 1번, 5번 - 0번) 비교
+                for(int j=0;j<i;j++) {
+                    HashSet<Integer> aSet = list.get(j);
+                    HashSet<Integer> bSet = list.get((i-1) - j);
+                    
+                    for(int a : aSet) {
+                        for(int b : bSet) {
+                            set.add(a + b);
+                            set.add(a - b);
+                            set.add(a * b);
+                            if(b != 0) set.add(a / b);
+                        }
+                    }
+                }
+                
+                if(set.contains(number)) return i+1;
+            }
+
             return -1;
         }
     }
