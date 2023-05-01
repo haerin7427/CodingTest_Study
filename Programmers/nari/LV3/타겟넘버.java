@@ -39,4 +39,36 @@ public class 타겟넘버 {
             }
         }
     }
+
+    class Solution3 {
+        int answer = 0;
+        int[] Numbers;
+        int len = 0;
+        int Target;
+        
+        public int solution(int[] numbers, int target) {
+            Numbers = numbers;
+            len = numbers.length;
+            Target = target;
+            
+            dfs(0, 0);
+            
+            return answer;
+        }
+        
+        public void dfs(int idx, int com) {
+            // 모두 탐색 완료한 경우
+            if(idx == len) {
+                // 계산된 숫자가 타겟 넘버인 경우
+                if(com == Target) answer++;
+                
+                return;
+            }
+            
+            int num = Numbers[idx];
+            
+            dfs(idx+1, com + num);
+            dfs(idx+1, com - num);
+        }
+    }
 }
