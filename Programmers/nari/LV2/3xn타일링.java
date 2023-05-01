@@ -2,7 +2,7 @@
 // title : 3 x n 타일링
 
 public class 3xn타일링 {
-    class Solution {
+    class Solution1 {
         public int solution(int n) {
             // n=1 -> 2가지
             // n=2 -> 3가지
@@ -28,6 +28,26 @@ public class 3xn타일링 {
             }
             
             return dp[n];
+        }
+    }
+
+    class Solution2 {
+        public int solution(int n) {
+            long[] dp = new long[n+1];
+            
+            // n=0는 없는 방법 1가지뿐
+            dp[0] = 1;
+            // n=1은 가로, 세로 배치 1가지씩 청 2가지뿐
+            dp[1] = 2;
+            
+            for(int i=2;i<n+1;i++) {
+                // 짝수인 경우
+                if(i%2 == 0) dp[i] = (dp[i-1] + dp[i-2]) % 1000000007;
+                // 홀수인 경우
+                else dp[i] = ((dp[i-1] * 2) + dp[i-2]) % 1000000007;
+            }
+            
+            return Long.valueOf(dp[n]).intValue();
         }
     }
 }
