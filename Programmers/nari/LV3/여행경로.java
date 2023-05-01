@@ -4,7 +4,7 @@
 import java.util.*;
 
 public class 여행경로 {
-    class Solution {
+    class Solution1 {
         boolean[] visited;
         ArrayList<String> allRoute = new ArrayList<>();
         
@@ -42,4 +42,59 @@ public class 여행경로 {
             }
         }
     }
+
+    // ArrayList<ArrayList<String>> allRoute 으로 했다가 arraylist 안에 arraylist가 있을 때, 정렬 X
+    class Solution2 {
+        String[][] ticket;
+        int len;
+        boolean[] visited;
+        ArrayList<String> allRoute = new ArrayList<>();
+        
+        public String[] solution(String[][] tickets) {
+            ticket = tickets;
+            len = tickets.length;
+            visited = new boolean[len];
+            
+            // 인천 공항 출발 찾기
+            for(int i=0;i<len;i++) {
+                if(ticket[i][0].equals("ICN")) {
+                    StringBuilder newRoute = new StringBuilder(ticket[i][0]);
+                    newRoute.append(" ");
+                    newRoute.append(ticket[i][1]);
+                    
+                    visited[i] = true;
+                    dfs(0, ticket[i][1], newRoute);
+                    visited[i] = false;
+                }
+            }
+            
+            // 담겨진 모든 경로 정렬
+            Collections.sort(allRoute);
+            
+            return allRoute.get(0).split(" ");
+        }
+        
+        public void dfs(int idx, String start, StringBuilder route) {
+            // 모든 경로를 탐색했을 경우
+            if(idx == len-1) {
+                allRoute.add(route.toString());
+                return;
+            }
+            
+            // 넘어온 다음 출발지에 대한 값 찾기
+            for(int i=0;i<len;i++) {
+                if(visited[i]) continue;
+                
+                if(ticket[i][0].equals(start)) {
+                    StringBuilder newRoute = new StringBuilder(route);
+                    newRoute.append(" ");
+                    newRoute.append(ticket[i][1]);
+                    
+                    visited[i] = true;
+                    dfs(idx+1, ticket[i][1], newRoute);
+                    visited[i] = false;
+                }
+            }
+        }
+}
 }
