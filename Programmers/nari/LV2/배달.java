@@ -1,8 +1,10 @@
 // https://school.programmers.co.kr/learn/courses/30/lessons/12978
 // title : 배달
 
+import java.util.*;
+
 public class 배달 {
-    class Solution {
+    class Solution1 {
         public int solution(int N, int[][] road, int K) {
             int answer = 0;
             
@@ -78,6 +80,67 @@ public class 배달 {
             
             for(int i=1;i<=N;i++) {
                 if(dist[i] <= K) answer++;
+            }
+
+            return answer;
+        }
+    }
+
+    class Solution2 {
+        public int solution(int N, int[][] road, int K) {
+            int answer = 0;
+            int[][] graph = new int[N][N];
+            
+            for(int i=0;i<N;i++) {
+                // 마을 촤대 50 * 시간 최대 10,000
+                Arrays.fill(graph[i], 500001);
+            }
+            
+            // 1번 마을 자기자신은 무조건 가능
+            graph[0][0] = 0;
+            
+            for(int[] info : road) {
+                int a = info[0]-1, b = info[1]-1;
+                int time = info[2];
+                
+                // 도로가 2개 존재할 경우
+                if(graph[a][b] > time) {
+                    graph[a][b] = time;
+                    graph[b][a] = time;
+                }
+            }
+            
+            // 1번 마을에서 각 마을 이동 시간
+            int[] times = new int[N];
+            
+            for(int i=1;i<N;i++) {
+                times[i] = graph[0][i];
+            }
+            
+            boolean[] visited = new boolean[N];
+            visited[0] = true;
+            
+            for(int i=0;i<N;i++) {
+                int min = Integer.MAX_VALUE, idx = 0;
+                
+                // 1번 마을에서 가장 적은 시간이 걸리는 마을 찾기
+                for(int j=1;j<N;j++) {
+                    if(!visited[j] && min > times[j]) {
+                        min = times[j];
+                        idx = j;
+                    }
+                }
+                
+                visited[idx] = true;
+                
+                for(int j=1;j<N;j++) {
+                    if(times[j] > times[idx] + graph[idx][j]) 
+                        times[j] = times[idx] + graph[idx][j];
+                }
+            }
+            
+            for(int time : times) {
+                if(time <= K) answer++;
             }
 
             return answer;
