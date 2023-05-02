@@ -1,9 +1,9 @@
 package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/72415
 // title : 카드 짝 맞추기
-// type : 순열 + BFS
-// time : ...
-// Created by haerin on 2023-04-19
+// type : 순열 + BFS, dfs + bfs
+// time : ..., 1h
+// Created by haerin on 2023-04-19, 2023-05-02
 import java.util.*;
 public class 카드짝맞추기 {
     class Solution {
@@ -130,6 +130,137 @@ public class 카드짝맞추기 {
                     queue.add(new Point(ny, nx, now.moveCnt+1));
                 }
                 
+            }
+        }
+    }
+    // 0502 2차시도
+    class Solution2 {
+        class Cursor {
+            int r;
+            int c;
+            int cnt;
+            Cursor(int r, int c, int cnt){
+                this.r = r;
+                this.c = c;
+                this.cnt = cnt;
+            }
+        }
+        private List<String> orderList = new ArrayList<>();
+        private boolean[] isVisited;
+        private int N = 0;
+        public int solution(int[][] board, int r, int c) {
+            for(int y=0; y<board.length; y++){
+                for(int x=0; x<board[0].length; x++){
+                    if(board[y][x] == 0) continue;
+                    N += 1;
+                }
+            }
+            N /= 2;
+            isVisited = new boolean[N];
+            dfs(new StringBuilder());
+            
+            return bfs(board, r, c);
+        }
+        
+        public int bfs(int[][] board, int r, int c) {
+            int[][] move = new int[][]{{0,1},{0,-1},{-1,0},{1,0}};
+            int answer = Integer.MAX_VALUE;
+            
+            for(String order : orderList){
+                
+                int[][] b = new int[board.length][board[0].length];
+                for(int i=0; i<b.length; i++){
+                    b[i] = board[i].clone();
+                }
+                
+                int idx = 0;
+                int target = order.charAt(idx) - '0';
+                Queue<Cursor> queue = new LinkedList<>();
+                queue.add(new Cursor(r, c, 0));
+                boolean[][] visited = new boolean[b.length][b[0].length];
+                visited[r][c] = true;
+                boolean isSecond = false;
+                    
+                while(!queue.isEmpty()){
+                    Cursor now = queue.poll();
+                    if(b[now.r][now.c] == target){
+                        // Enter 처리
+                        now.cnt += 1;
+                        b[now.r][now.c] = 0;
+                        
+                        // 초기화
+                        visited = new boolean[b.length][b[0].length];
+                        queue.clear();
+                        
+                        // 시작점 세팅
+                        visited[now.r][now.c] = true;
+                        
+                        if(isSecond){ // 두 번째 찾은 타겟 카드 일 경우
+                            if(idx + 1 == N) { // 마지막 순서의 카드일 경우
+                                answer = Math.min(answer, now.cnt);
+                                break;
+                            }else{ // 마지막 순서가 아닐 경우
+                                idx += 1;
+                                isSecond = false;
+                                target = order.charAt(idx) - '0';
+                            }
+                        }else{ // 아닐 경우
+                            isSecond = true;
+                        }
+                    }
+                    // 한 칸씩 이동
+                    for(int[] m : move) {
+                        int nr = now.r + m[0];
+                        int nc = now.c + m[1];
+
+                        if(nr < 0 || nc < 0 || nr >= b.length || nc >= b[0].length) continue;
+                        if(visited[nr][nc]) continue;
+
+                        visited[nr][nc] = true;
+                        queue.add(new Cursor(nr, nc, now.cnt + 1));
+                    }
+                        
+                    // ctrl 이동
+                    for(int[] m : move){
+                        int nr = now.r;
+                        int nc = now.c;
+
+                        while(isOnBoard(board, nr + m[0], nc + m[1])){
+                            nr += m[0];
+                            nc += m[1];
+
+                            if(b[nr][nc] != 0){
+                                break;
+                            }
+                        }
+                        if(visited[nr][nc] || now.r == nr && now.c == nc) continue;
+
+                        visited[nr][nc] = true;
+                        queue.add(new Cursor(nr, nc, now.cnt + 1));
+                    }
+                }
+            }
+            return answer;
+        }
+        
+        private boolean isOnBoard(int[][] board, int r, int c){
+            if(r < 0 || c < 0 || r >= board.length || c >= board[0].length)
+                return false;
+            else
+                return true;
+        }
+        
+        public void dfs(StringBuilder sb){
+            if(sb.length() == N){
+                orderList.add(new String(sb.toString()));
+                return;
+            }
+            for(int i=1; i<=N; i++){
+                if(isVisited[i-1]) continue;
+                isVisited[i-1] = true;
+                dfs(sb.append(i));
+                sb.deleteCharAt(sb.length()-1);
+                isVisited[i-1] = false;
             }
         }
     }
