@@ -2,8 +2,8 @@ package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/64062
 // title : 징검다리건너기
 // type : 이분탐색
-// time : 21m
-// Created by haerin on 2023-03-22
+// time : 21m, 12m
+// Created by haerin on 2023-03-22, 2023-05-03
 import java.util.*;
 ;public class 징검다리건너기 {
     // 효율성 테스트 실패
@@ -47,6 +47,38 @@ import java.util.*;
                     if(count == k) return false;
                 }else{
                     count = 0;
+                }
+            }
+            return true;
+        }
+    }
+    class Solution3 {
+        public int solution(int[] stones, int k) {
+            int answer = 0;
+            int left = 1; // 통과 가능한 최소한 사람의 수
+            int right = 200000000; // 통과 가능한 최대 사람 수
+            while(left <= right){
+                int mid = (left + right) / 2;
+                
+                if(isPossible(stones, k, mid)){
+                    left = mid + 1;
+                    answer = mid;
+                }else{
+                    right = mid - 1;
+                }
+            }
+            
+            return answer;
+        }
+        
+        private boolean isPossible(int[] arr, int k, int people){
+            int cnt = 0;
+            for(int num : arr){
+                if(num < people){
+                    cnt += 1;
+                    if(k == cnt) return false;
+                }else{
+                    cnt = 0;
                 }
             }
             return true;
