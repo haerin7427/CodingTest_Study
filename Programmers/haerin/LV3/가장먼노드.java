@@ -2,8 +2,8 @@ package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/49189
 // title : 가장 먼 노드
 // type : bfs
-// time : 21m
-// Created by haerin on 2023-03-16
+// time : 21m, 20m
+// Created by haerin on 2023-03-16, 2023-05-02
 import java.util.*;
 public class 가장먼노드 {
     class Solution {
@@ -43,6 +43,60 @@ public class 가장먼노드 {
                     answer += 1;
             }
             return answer;
+        }
+    }
+    // 2차 시도
+    class Solution2 {
+        class Node {
+            int num;
+            int distance;
+            Node(int n, int d){
+                this.num = n;
+                this.distance = d;
+            }
+        }
+        public int solution(int n, int[][] edge) {
+            List<List<Integer>> list = new ArrayList<>();
+            for(int i=0; i<=n; i++){
+                list.add(new ArrayList<>());
+            }
+            for(int[] e : edge){
+                int n1 = e[0];
+                int n2 = e[1];
+                list.get(n1).add(n2);
+                list.get(n2).add(n1);
+            }
+            
+            int[] distance = new int[n+1];
+            int max = move(list, distance);
+            int cnt = 0;
+            for(int a : distance){
+                if(a == max){
+                    cnt += 1;
+                }
+            }
+            return cnt;
+        }
+        
+        public int move(List<List<Integer>> list, int[] distance){
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(new Node(1, 0));
+            
+            boolean[] visited = new boolean[list.size()];
+            visited[1] = true;
+            int max = 0;
+            while(!queue.isEmpty()){
+                Node now = queue.poll();
+                
+                for(int i=0; i<list.get(now.num).size(); i++){
+                    if(visited[list.get(now.num).get(i)]) continue;
+                    max = Math.max(max, now.distance+1);
+                    visited[list.get(now.num).get(i)] = true;
+                    distance[list.get(now.num).get(i)] = now.distance+1;
+                    queue.add(new Node(list.get(now.num).get(i), now.distance+1));
+                }
+            }
+            return max;
         }
     }
 }
