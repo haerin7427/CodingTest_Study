@@ -4,7 +4,7 @@
 import java.util.*;
 
 public class 게임맵최단거리 {
-    class Solution {
+    class Solution1 {
         // 동, 서, 남, 북 탐색위한 배열
         int[] dx = {0, 0, 1, -1};
         int[] dy = {-1, 1, 0, 0};
@@ -52,6 +52,43 @@ public class 게임맵최단거리 {
             }
             
             
+        }
+    }
+
+    class Solution2 {
+        public int solution(int[][] maps) {
+            int answer = Integer.MAX_VALUE;
+            int n = maps.length, m = maps[0].length;
+            int[] dx = {1, -1, 0, 0};
+            int[] dy = {0, 0, 1, -1};
+            Queue<int[]> queue = new LinkedList<>();
+            boolean[][] visited = new boolean[n][m];
+            
+            // 시작점 좌표 (x, y), 지나온 칸의 개수 (count)
+            queue.add(new int[]{0, 0, 0});
+            visited[0][0] = true;
+            
+            while(!queue.isEmpty()) {
+                int[] cur = queue.poll();
+                
+                // 상대 팀 진영에 도착한 경우
+                if(cur[0] == n-1 && cur[1] == m-1) {
+                    answer = Math.min(answer, cur[2] + 1);
+                }
+                
+                for(int i=0;i<4;i++) {
+                    int nx = cur[0] + dx[i];
+                    int ny = cur[1] + dy[i];
+                    
+                    // 게임 맵에서 벗어나거나 벽이거나 이미 방문한 경우
+                    if(0 > nx || nx > n-1 || 0 > ny || ny > m-1 || maps[nx][ny] == 0 || visited[nx][ny]) continue;
+                    
+                    queue.add(new int[]{nx, ny, cur[2]+1});
+                    visited[nx][ny] = true;
+                }
+            }
+            
+            return answer == Integer.MAX_VALUE ? -1 : answer;
         }
     }
 }
