@@ -2,8 +2,8 @@ package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/43238
 // title : 입국심사
 // type : 이분탐색
-// time : 14m
-// Created by haerin on 2023-03-21
+// time : 14m, 10m
+// Created by haerin on 2023-03-21, 2023-05-03
 import java.util.*;
 public class 입국심사 {
     class Solution {
@@ -23,6 +23,31 @@ public class 입국심사 {
                     right = mid-1;
                     answer = mid;
                 }else{ // n명이 심사 받지 못하는 경우 -> 시간 필요
+                    left = mid+1;
+                }
+            }
+            return answer;
+        }
+    }
+    
+    // 0503 2차시도
+    class Solution2 {
+        public long solution(int n, int[] times) {
+            long answer = Long.MAX_VALUE;
+            long left = 0; 
+            long right = 1000000000l * n; // 최악의 시간(분)
+            while(left <= right){
+                long mid = (left + right) / 2;
+                
+                long people = 0;
+                for(int time : times){
+                    people += mid / time;
+                }
+                
+                if(people >= n){
+                    right = mid-1;
+                    answer = Math.min(answer, mid);
+                }else{
                     left = mid+1;
                 }
             }
