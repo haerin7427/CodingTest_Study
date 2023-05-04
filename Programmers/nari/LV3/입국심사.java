@@ -4,7 +4,7 @@
 import java.util.*;
 
 public class 입국심사 {
-    class Solution {
+    class Solution1 {
         public long solution(int n, int[] times) {
             long answer = Long.MAX_VALUE;
             
@@ -30,6 +30,39 @@ public class 입국심사 {
                 else { 
                     right = mid - 1;
                     // 최솟값
+                    answer = Math.min(answer, mid);
+                }
+            }
+            
+            return answer;
+        }
+    }
+
+    // right 생성할 때, n 앞에 (long) type 변환 안해주면 에러
+    class Solution2 {
+        public long solution(int n, int[] times) {
+            // 모든 사람이 심사를 받는데 걸리는 시간의 최솟값
+            long answer = Long.MAX_VALUE;
+            int len = times.length;
+            
+            Arrays.sort(times);
+            // 1명의 제일 적은 시간 ~ n명의 제일 많은 시간 = 모든 경우의 시간
+            long left = times[0], right = (long) n * times[len-1];
+            
+            while(left <= right) {
+                long mid = (left + right) / 2;
+                long people = 0;
+                
+                // 중간 시간동안 해당 심사관이 몇명을 심사할 수 있는지
+                for(int t : times) {
+                    people += mid / t;
+                }
+                
+                // 모든 심사관들이 심사할 수 있는 사람의 수가 기다리는 사람보다 적을 경우 -> 시간 증가
+                if(people < n) left = mid + 1;
+                else {
+                    // 같거나 큰 경우 -> 시간 감소
+                    right = mid - 1;
                     answer = Math.min(answer, mid);
                 }
             }
