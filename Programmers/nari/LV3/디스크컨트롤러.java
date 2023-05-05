@@ -39,4 +39,37 @@ public class 디스크컨트롤러 {
             return answer/jobs.length;
         }
     }
+
+    class Solution2 {
+        public int solution(int[][] jobs) {
+            int answer = 0;
+            int len = jobs.length;
+            int cnt = 0, idx = 0, time = 0;
+            
+            // 0번(요청 시점)을 기준으로 정해진 시간 안에 존재하는 경우, 모두 queue에 담기
+            // 정해진 시간 = 1번(소요시간) 누적 값
+            // queue에 담기면 1번을 기준으로 정렬
+            // queue에 담긴 값 poll하면서 걸린 시간 answer에 더하기
+            
+            Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
+            PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+            
+            while(cnt < len) {
+                while(idx < len && jobs[idx][0] <= time) {
+                    queue.add(jobs[idx++]);
+                }
+                
+                if(queue.isEmpty()) time = jobs[idx][0];
+                else {
+                    int[] work = queue.poll();
+                    answer += work[1] + time - work[0];
+                    time += work[1];
+                    cnt++;
+                }
+            }
+            
+            // 평균 시간 구하기
+            return answer/len;
+        }
+    }
 }
