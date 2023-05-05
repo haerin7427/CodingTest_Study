@@ -2,8 +2,8 @@ package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/42627#
 // title : 디스크 컨트롤러
 // type : Heap
-// time : 35m
-// Created by haerin on 2023-03-13
+// time : 35m, 26m
+// Created by haerin on 2023-03-13, 2023-05-05
 import java.util.*;
 public class 디스크컨트롤러 {
     class Solution {
@@ -34,6 +34,49 @@ public class 디스크컨트롤러 {
             }
     
             return sum / jobs.length;
+        }
+    }
+    // 0505 2차시도
+    class Solution2 {
+        class Work {
+            int requiredTime;
+            int workingTime;
+            
+            Work(int r, int w){
+                this.requiredTime = r;
+                this.workingTime = w;
+            }
+        }
+        public int solution(int[][] jobs) {
+            Arrays.sort(jobs, (o1, o2) -> o1[0] - o2[0]);
+            Queue<Work> queue = new LinkedList<>();
+            PriorityQueue<Work> pq = new PriorityQueue<>((o1, o2) -> o1.workingTime - o2.workingTime);
+            for(int[] job : jobs){
+                queue.add(new Work(job[0], job[1]));
+            }
+            
+            int time = 0;
+            int sum = 0;
+            int count = 0;
+            int N = jobs.length;
+            
+            while(count < N){
+                while(!queue.isEmpty() && queue.peek().requiredTime <= time){
+                    pq.add(queue.poll());
+                }
+                
+                if(pq.isEmpty() && !queue.isEmpty()){
+                    time = queue.peek().requiredTime;
+                }else if(!pq.isEmpty()){
+                    Work work = pq.poll();
+                    sum += (time - work.requiredTime) + work.workingTime;
+                    time += work.workingTime;
+                    count += 1;
+                }
+            }
+            
+            int answer = sum / jobs.length;
+            return answer;
         }
     }
 }

@@ -3,7 +3,7 @@
 
 public class 순위 {
     // 플로이드 와샬 알고리즘
-    class Solution {
+    class Solution1 {
         public int solution(int n, int[][] results) {
             int answer = 0;
             // 이긴 경우, 1을 저장. 진 경우, -1을 저장
@@ -41,6 +41,48 @@ public class 순위 {
                 
                 for(int j=1;j<=n;j++) {
                     if(floyd[i][j] != 0) cnt++;
+                }
+                
+                if(cnt == n-1) answer++;
+            }
+            
+            return answer;
+        }
+    }
+
+    class Solution2 {
+        public int solution(int n, int[][] results) {
+            int answer = 0;
+            int[][] graph = new int[n+1][n+1];
+            
+            for(int[] result : results) {
+                int a = result[0], b = result[1];
+                
+                graph[a][b] = 1;
+                graph[b][a] = -1;
+            }
+            
+            for(int i=1;i<n+1;i++) {
+                for(int j=1;j<n+1;j++) {
+                    for(int k=1;k<n+1;k++) {
+                        if(graph[i][k] == 1 && graph[k][j] == 1) {
+                            graph[i][j] = 1;
+                            graph[j][i] = -1;
+                        }
+                        
+                        if(graph[i][k] == -1 && graph[k][j] == -1) {
+                            graph[i][j] = -1;
+                            graph[j][i] = 1;
+                        }
+                    }
+                }
+            }
+            
+            for(int[] a : graph) {
+                int cnt = 0;
+                
+                for(int b : a) {
+                    if(b != 0) cnt++;
                 }
                 
                 if(cnt == n-1) answer++;
