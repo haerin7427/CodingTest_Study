@@ -1,9 +1,9 @@
 package Programmers.haerin.LV3;
 // https://school.programmers.co.kr/learn/courses/30/lessons/12979
 // title : 기지국 설치
-// type : 구현
-// time : 19m
-// Created by haerin on 2023-03-24
+// type : 구현 (Greedy)
+// time : 19m, 13m
+// Created by haerin on 2023-03-24, 2023-05-11
 public class 기지국설치 {
     class Solution {
         public int solution(int n, int[] stations, int w) {
@@ -36,6 +36,37 @@ public class 기지국설치 {
             }
     
             return sum;
+        }
+    }
+
+    class Solution2 {
+        public int solution(int n, int[] stations, int w) {
+            
+            int sPoint = 1;
+            int answer = 0;
+            for(int station : stations){
+                int ePoint = station - w - 1;
+                if(sPoint <= ePoint) {
+                    int len = ePoint - sPoint + 1;
+                    answer += len / (2*w+1);
+                    if(len % (2*w+1) != 0) {
+                        answer += 1;
+                    }
+                }
+                sPoint = station + w + 1;
+            }
+            
+            if(sPoint <= n){
+                int len = n - sPoint + 1;
+                answer += len / (2*w+1);
+                if(len % (2*w+1) != 0) {
+                    answer += 1;
+                }
+            }
+            
+            
+    
+            return answer;
         }
     }
 }
