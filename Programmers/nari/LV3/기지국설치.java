@@ -2,7 +2,7 @@
 // title : 기지국 설치
 
 public class 기지국설치 {
-    class Solution {
+    class Solution1 {
         public int solution(int n, int[] stations, int w) {
             int answer = 0;
             // 현재 아파트 위치
@@ -12,7 +12,7 @@ public class 기지국설치 {
             
             // location은 현재 아파트 위치기 때문에 n개를 넘을 수 없음
             while(location <= n) {
-                // 설치된 기지국 전부를 지나지 않았고,
+                // 설치된 기지국 전부를 지나지 않았고, 
                 // 현재 아파트 위치가 설치된 기지국의 범위 사이에 존재할 경우
                 if(idx < stations.length && stations[idx]-w <= location && location <= stations[idx]+w) {
                     // 설치된 기지국의 범위보다 +1 위치로 이동
@@ -23,6 +23,27 @@ public class 기지국설치 {
                     // w - location - w
                     location += 2 * w + 1;
                     // 기지국 설치
+                    answer++;
+                }
+            }
+
+            return answer;
+        }
+    }
+
+    class Solution2 {
+        public int solution(int n, int[] stations, int w) {
+            int answer = 0;
+            int cur = 1, idx = 0;
+            int len = stations.length;
+            
+            while(cur <= n) {
+                if(idx < len && stations[idx]-w <= cur && cur <= stations[idx]+w) {
+                    cur = stations[idx] + w + 1;
+                    idx++;
+                }
+                else {
+                    cur += 2 * w + 1;
                     answer++;
                 }
             }
