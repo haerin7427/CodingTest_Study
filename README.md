@@ -1,7 +1,7 @@
 # CodingTest_Study   
 ### 💡 문제 출제
 * 매주 `금요일 자정`까지 위키에 다음주에 풀 문제 선택
-* 일주일 분량 `프로그래머스 LV3 15문제` 정한 후, [`wiki`](https://github.com/haerin7427/CodingTest_Study/wiki)에 추가 (하루에 3문제)
+* 1일 `SQL 2문제, 알고리즘 3문제`씩, 한 주의 문제를 정한 후, [`wiki`](https://github.com/haerin7427/CodingTest_Study/wiki)에 추가
 <br></br>
 ### 💡 스터디 방식
 * 평일 오후 2시에 구글밋  스터디
@@ -16,8 +16,10 @@
     * 리트코드 : leet
   * `pr 규칙` 
     * 프로그래머스 : [Programmers] yy-mm-dd
+    * 리트코드 : [Leetcode] yy-mm-dd
   * `업로드 위치`
     * 프로그래머스 : Programmers/이름/레벨/파일명 (ex. `Programmers/haerin/LV1/약수의합.java`)
+    * 리트코드 : Leetcode/이름/난이도/파일명 (ex. `Leetcode/haerin/Easy/invertBinaryTree.java`)
 <br></br>
 ### 👥 Member
 |<a href="https://github.com/haerin7427"><img src="https://avatars.githubusercontent.com/u/43716537?v=4?s=100" width="50px;" alt="">|<a href="https://github.com/KimBitnari"><img src="https://avatars.githubusercontent.com/u/59634496?v=4?s=100" width="50px;" alt="">|
