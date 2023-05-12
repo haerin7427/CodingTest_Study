@@ -1,4 +1,4 @@
-package Programmers.haerin.Easy;
+package Leetcode.haerin.Easy;
 // https://leetcode.com/problems/climbing-stairs/description/
 // title : 70. Climbing Stairs
 // type : Dynamic Programming
