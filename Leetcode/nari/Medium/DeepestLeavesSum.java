@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/deepest-leaves-sum/
 // title : 1302. Deepest Leaves Sum
-// time taken : 33 m 38 s
+// time taken : 20 m 4 s + 20 m (늦게 start...)
 
 /**
  * Definition for a binary tree node.
