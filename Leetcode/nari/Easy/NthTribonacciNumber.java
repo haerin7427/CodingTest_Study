@@ -1,6 +1,6 @@
 // https://leetcode.com/problems/n-th-tribonacci-number/
 // title : 1137. N-th Tribonacci Number
-// time taken : 33 m 38 s
+// time taken : 2 m 21 s
 
 public class NthTribonacciNumber {
     class Solution {
