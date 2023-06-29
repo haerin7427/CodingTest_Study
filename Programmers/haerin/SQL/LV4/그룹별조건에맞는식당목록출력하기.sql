@@ -1,0 +1,19 @@
+-- https://school.programmers.co.kr/learn/courses/30/lessons/131124
+-- title : 그룹별 조건에 맞는 식당 목록 출력하기
+-- created by haerin on 2023-06-29
+SELECT M.MEMBER_NAME, R.REVIEW_TEXT, DATE_FORMAT(R.REVIEW_DATE, '%Y-%m-%d') AS REVIEW_DATE
+FROM REST_REVIEW R LEFT JOIN MEMBER_PROFILE M ON R.MEMBER_ID = M.MEMBER_ID
+WHERE R.MEMBER_ID IN (
+    SELECT MEMBER_ID
+    FROM REST_REVIEW
+    GROUP BY MEMBER_ID
+    HAVING COUNT(*) = (
+        SELECT COUNT(*)
+        FROM REST_REVIEW
+        GROUP BY MEMBER_ID
+        ORDER BY COUNT(*) DESC
+        LIMIT 1
+    )
+    ORDER BY COUNT(*) DESC
+)
+ORDER BY REVIEW_DATE, R.REVIEW_TEXT;
