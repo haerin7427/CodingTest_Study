@@ -1,0 +1,9 @@
+-- https://school.programmers.co.kr/learn/courses/30/lessons/132204
+-- title : 취소되지 않은 진료 예약 조회하기
+-- created by haerin on 2023-06-29
+SELECT A.APNT_NO, P.PT_NAME, A.PT_NO, A.MCDP_CD, D.DR_NAME, A.APNT_YMD
+FROM APPOINTMENT A
+LEFT JOIN PATIENT P ON A.PT_NO = P.PT_NO
+LEFT JOIN DOCTOR D ON A.MDDR_ID = D.DR_ID
+WHERE (A.APNT_YMD BETWEEN '2022-04-13 00:00:00' AND '2022-04-13 23:59:59') AND A.APNT_CNCL_YN = 'N' AND A.MCDP_CD = 'CS'
+ORDER BY A.APNT_YMD;
