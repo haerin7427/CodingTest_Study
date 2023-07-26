@@ -1,0 +1,9 @@
+-- https://school.programmers.co.kr/learn/courses/30/lessons/164668
+-- title : 조건에 맞는 사용자와 총 거래금액 조회하기
+-- created by haerin on 2023-07-26
+SELECT USER_ID, NICKNAME, SUM(PRICE) AS TOTAL_SALES
+FROM USED_GOODS_BOARD left join USED_GOODS_USER on USED_GOODS_BOARD.WRITER_ID = USED_GOODS_USER.USER_ID
+WHERE STATUS = 'DONE' 
+GROUP BY WRITER_ID
+HAVING SUM(PRICE) >= 700000
+ORDER BY TOTAL_SALES;
